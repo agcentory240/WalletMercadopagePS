@@ -1,0 +1,8 @@
+{
+    "name": "WalletMercadopagePS",
+    "description": "Mercado Page payment module for Wallet",
+    "type": "module",
+    "version": "1.0.0",
+    "dependencies": {
+    }
+}

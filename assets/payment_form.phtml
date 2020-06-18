@@ -1,0 +1,205 @@
+<?php
+	//error_reporting(E_ALL);
+	//ini_set('display_errors', 1);
+	//Получим данные кошелька
+	//$application = $this->getApplication();
+	if ($this->getSession()->getAppId()) $app_id = $this->getSession()->getAppId(); else $app_id=$this->getApplication()->getId();
+	$db =Zend_Db_Table_Abstract::getDefaultAdapter();
+
+	$stmt = $db->query(
+		'SELECT version FROM module WHERE name = ?',
+		array('Wallet')
+	);
+	$current_version =$stmt->fetch()['version'];
+	
+
+	if (empty($current_version)) {
+		echo "Wallet module not found! Exit...";
+		?><br><a href="<?php echo (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]";?>" rel="" class="navigation"><i class="fa fa-sign-out fa-lg"></i> <?php echo __('Exit to Editor'); ?></a><br><?php
+		die(__("Wallet module not found! Exit..."));
+	}	
+	
+	$stmt = $db->query(
+		'SELECT * FROM application_option WHERE code = ?',
+		array('wallet')
+	);
+	$option_id = $stmt->fetch()['option_id'];
+	$stmt = $db->query(
+		'SELECT * FROM application_option_value WHERE option_id = ? and app_id = ?',
+		array($option_id, $app_id)
+	);
+	$value_id = $stmt->fetch()['value_id'];
+
+	$wallet = new Wallet_Model_Wallet();
+	$wallet->find(array("value_id" => $value_id));
+
+	$mercado = new WalletMercadopagePS_Model_PaymentMethodsMercadopage();
+	$mercado->find(array('wallet_id'=>$wallet->getId()));
+?>
+
+<div id="list-panel" class="settings-panel">  
+	<div class="row">
+		<div class="col-sm-12">
+			<h1>Mercado Page. <?php echo __('Settings'); ?></h1>
+		</div>
+	  </div>
+	  <br>
+	  <br>
+	  <form class="form-horizontal" id="mercadopagesettingsForm" method="post" action="<?php echo $this->getUrl('walletmercadopageps/admin/save'); ?>">
+	  <input type="hidden" name="wallet_id" value="<?php echo $wallet->getId();?>">
+	  <input type="hidden" name="mercado_id" value="<?php echo $mercado->getId();?>">
+	  <input type="hidden" name="original_title" value="Mercado Page">
+
+	  <div class="row">
+		<div class="col-sm-12">
+		
+		  <div class="form-group">
+			<label for="inputTitle" class="col-sm-2 control-label">Enabled?</label>
+			<div class="col-sm-10">
+				<select class="form-control" name="enabled">
+					<option value=1 <?php if ($mercado->getData('enabled')=="1") echo "selected='selected'";?>><?php echo __('Method enabled'); ?></option>
+					<option value=0 <?php if ($mercado->getData('enabled')=="0") echo "selected='selected'";?>><?php echo __('Method disabled'); ?></option>
+				</select>
+			</div>
+		  </div>	
+		  
+		  <div class="form-group">
+			<label for="inputTitle" class="col-sm-2 control-label"><?php echo __('Method title'); ?></label>
+			<div class="col-sm-10">
+			  <input type="text" class="form-control" id="inputTitle" name="title" placeholder="via Mercado, Mercado online , etc..." value="<?php echo $mercado->getData('title');?>">
+			</div>
+		  </div>
+		  
+		  <div class="form-group">
+			<label for="access_token" class="col-sm-2 control-label">Access Token</label>
+			<div class="col-sm-10">
+			  <input type="text" class="form-control" id="access_token" name="access_token" placeholder="Access Token" value="<?php echo $mercado->getData('access_token');?>">
+			</div>
+		  </div>
+		  <div class="form-group">
+			<label for="public_key" class="col-sm-2 control-label">Public Key</label>
+			<div class="col-sm-10">
+			  <input type="text" class="form-control" name="public_key" id="public_key" placeholder="Public Key" value="<?php echo $mercado->getData('public_key');?>">
+			</div>
+		  </div>
+		  <div class="form-group">
+			<label for="inputTitle" class="col-sm-2 control-label"><?php echo __('Mode'); ?></label>
+			<div class="col-sm-10">
+				<select class="form-control" name="is_testing">
+					<option value=1 <?php if ($mercado->getData('is_testing')=="1") echo "selected='selected'";?>><?php echo __('Test mode'); ?></option>
+					<option value=0 <?php if ($mercado->getData('is_testing')=="0") echo "selected='selected'";?>><?php echo __('Work mode'); ?></option>
+				</select>
+			</div>
+		  </div>
+		  
+		  <div class="form-group">
+			<label for="inputTitle" class="col-sm-2 control-label"><?php echo __('Installments'); ?> [0-12]</label>
+			<div class="col-sm-10">
+				<select class="form-control" name="installments">
+					<option value=0 <?php if ($mercado->getData('installments')=="1") echo "selected='selected'";?>>0</option>
+					<option value=1 <?php if ($mercado->getData('installments')=="1") echo "selected='selected'";?>>1</option>
+					<option value=2 <?php if ($mercado->getData('installments')=="1") echo "selected='selected'";?>>2</option>
+					<option value=3 <?php if ($mercado->getData('installments')=="1") echo "selected='selected'";?>>3</option>
+					<option value=4 <?php if ($mercado->getData('installments')=="1") echo "selected='selected'";?>>4</option>
+					<option value=5 <?php if ($mercado->getData('installments')=="1") echo "selected='selected'";?>>5</option>
+					<option value=6 <?php if ($mercado->getData('installments')=="1") echo "selected='selected'";?>>6</option>
+					<option value=7 <?php if ($mercado->getData('installments')=="1") echo "selected='selected'";?>>7</option>
+					<option value=8 <?php if ($mercado->getData('installments')=="1") echo "selected='selected'";?>>8</option>
+					<option value=9 <?php if ($mercado->getData('installments')=="1") echo "selected='selected'";?>>9</option>
+					<option value=10 <?php if ($mercado->getData('installments')=="1") echo "selected='selected'";?>>10</option>
+					<option value=11 <?php if ($mercado->getData('installments')=="1") echo "selected='selected'";?>>11</option>
+					<option value=12 <?php if ($mercado->getData('installments')=="1") echo "selected='selected'";?>>12</option>
+
+				</select>
+			</div>
+		  </div>
+
+		</div>
+	  </div>
+	<div class="row" style="padding:10px;">
+		<div class="col-sm-6 text-right"><button type="button" class="btn btn-success btn-lg mercado_save_settings" id="mercado_save_settings"><i class="fa fa-floppy-o" aria-hidden="true"></i> <?php echo $this->_('Save'); ?></button></div>
+		<div class="col-sm-6 text-left"><button type="button" class="btn btn-default btn-lg mercado_back_button" id="mercado_back_button"><i class="fa fa-undo" aria-hidden="true"></i> <?php echo $this->_('Undo'); ?></button></div>
+	</div></form>	  
+</div>
+<script type="text/javascript">
+var form_valid = false;
+$(document).ready(function(){
+	$("#mercado_back_button").on("click",function() {
+		loader_show();
+		$.ajax({
+		   url: '<?php echo $this->getUrl('wallet/admin/payment'); ?>',
+		   type:'GET',
+		   data:"parameter=WalletMercadopagePS",
+		   dataType: "json",
+		   success: function(data){
+				$("#error-message").hide();
+				$("#success-message").hide();
+			   $('#main').html(data.html);
+			   loader_hide();
+		   }
+		});
+	});
+	
+	
+	$("#mercado_save_settings").on("click",function() {
+
+		//swal("Here's a message!");
+		loader_show();
+		
+		$.ajax({
+			   type: "POST",
+			   url:$("#mercadopagesettingsForm").attr("action"),
+			   data: $("#mercadopagesettingsForm").serialize(), // serializes the form's elements.
+			   dataType: "json",
+			   success: function(data)
+			   {
+				   console.log(data); // show response from the php script.
+				   if (data.success) {
+						$("#error-message").hide();
+						$("#success-message").html(data.success_message);
+						$("#success-message").show();
+						if ($('#item-subpanel').length) {
+							$('#item-subpanel').hide();
+							$('#item-panel').show();
+							$('#list-panel').hide();
+						} else {
+							$('#item-panel').hide();
+							$('#list-panel').show();		
+						}
+						
+						/*simple reload page*/
+						loader_show();							
+						$.ajax({
+						   url:'<?php echo $this->getUrl('wallet/admin/payment'); ?>',
+						   type:'GET',
+						   data: "parameter=WalletMercadopagePS",
+						   dataType: "json",
+						   success: function(data1){
+								$("#error-message").hide();
+								$("#success-message").hide();
+							   $('#main').html(data1.html);
+							   $("#success-message").html(data.success_message).show();
+							   loader_hide();
+						   }
+						});							
+
+						
+				   }
+				   $("html, body").animate({ scrollTop: 0 }, "fast");
+			   },
+			   error: function (jqXHR) {
+				var rdata = JSON.parse(jqXHR.responseText);
+				console.log(jqXHR.responseText);
+			   //console.log(exception);
+				$("#error-message").html(rdata.message);
+				$("#error-message").show();
+				$("#success-message").html();
+				$("#success-message").hide();
+				loader_hide();
+				$("html, body").animate({ scrollTop: 0 }, "fast");
+			   }
+			 });		
+	});		
+	
+});
+</script>

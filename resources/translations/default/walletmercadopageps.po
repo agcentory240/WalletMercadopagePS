@@ -1,0 +1,93 @@
+"Project - Id - Version: 
+"
+"Report-Msgid-Bugs-To: 
+"
+"Last-Translator: 
+"
+"Language-Team: Nwicode
+"
+"MIME-Version: 1.0
+"
+"Content-Type: text/plain; charset=UTF-8
+"
+"Content-Transfer-Encoding: 8bit
+"
+"POT-Creation-Date: 2019-06-13T14:30:31+00:00
+"
+"PO-Revision-Date: 2019-06-13T14:30:31+00:00
+"
+"Language: 
+"
+
+# GMT 1581185568.465453
+msgctxt "walletmercadopageps"
+msgid "Deposit funds in the wallet"
+msgstr "Deposit funds in the wallet"
+
+# GMT 1581185568.466453
+#, mobile
+msgctxt "walletmercadopageps"
+msgid "Deposit funds in the wallet"
+msgstr "Deposit funds in the wallet"
+
+# GMT 1581185568.466453
+msgctxt "walletmercadopageps"
+msgid "Operation result"
+msgstr "Operation result"
+
+# GMT 1581185568.466453
+#, mobile
+msgctxt "walletmercadopageps"
+msgid "Operation result"
+msgstr "Operation result"
+
+# GMT 1581185568.466453
+msgctxt "walletmercadopageps"
+msgid "Thank. Funds will be credited automatically."
+msgstr "Thank. Funds will be credited automatically."
+
+# GMT 1581185568.466453
+#, mobile
+msgctxt "walletmercadopageps"
+msgid "Thank. Funds will be credited automatically."
+msgstr "Thank. Funds will be credited automatically."
+
+# GMT 1581185568.466453
+msgctxt "walletmercadopageps"
+msgid "Sorry, something went wrong. Try later."
+msgstr "Sorry, something went wrong. Try later."
+
+# GMT 1581185568.466453
+#, mobile
+msgctxt "walletmercadopageps"
+msgid "Sorry, something went wrong. Try later."
+msgstr "Sorry, something went wrong. Try later."
+
+# GMT 1581185568.466453
+msgctxt "walletmercadopageps"
+msgid "Close"
+msgstr "Close"
+
+# GMT 1581185568.466453
+#, mobile
+msgctxt "walletmercadopageps"
+msgid "Close"
+msgstr "Close"
+
+# GMT 1581185568.466453
+#, mobile
+msgctxt "walletmercadopageps"
+msgid "Operation result"
+msgstr "Operation result"
+
+# GMT 1581185568.466453
+#, mobile
+msgctxt "walletmercadopageps"
+msgid "Payment is ongoing. Upon completion of the payment, the funds will be credited automatically."
+msgstr "Payment is ongoing. Upon completion of the payment, the funds will be credited automatically."
+
+# GMT 1581185568.466453
+#, mobile
+msgctxt "walletmercadopageps"
+msgid "Deposit funds in the wallet"
+msgstr "Deposit funds in the wallet"

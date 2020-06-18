@@ -1,0 +1,29 @@
+<ion-view sb-page-background class="sourcecode-view">
+    <ion-nav-title>{{ ::'Operation result' | translate:"walletmercadopageps" }}</ion-nav-title>
+    <ion-content sb-background-image>
+
+        <ion-card ng-if="!is_loading">
+            <ion-card-content text-center ng-if="data.status == 1">
+                <ion-text color="success">
+                    {{ ::'Thank. Funds will be credited automatically.' | translate:"walletmercadopageps" }}
+                </ion-text>
+            </ion-card-content>
+            <ion-card-content text-center ng-if="data.status == -1">
+                <ion-text color="danger">
+                    {{ ::'Sorry, something went wrong. Try later.' | translate:"walletmercadopageps" }}
+                </ion-text>
+            </ion-card-content>
+            <ion-card-content text-center ng-if="data.status == 0">
+                <ion-text color="warning">
+                    {{ ::'Payment is ongoing. Upon completion of the payment, the funds will be credited automatically.' | translate:"walletmercadopageps" }}
+                </ion-text>
+            </ion-card-content>
+            <ion-button padding expand="block" ng-click="closeWindow()" color="primary"><ion-icon slot="start" name="close"></ion-icon>{{::'Close'|translate:"walletprocessingkzps"}}</ion-button>
+            
+        </ion-card>
+
+
+
+    </ion-content>
+
+</ion-view>
